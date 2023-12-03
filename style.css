@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: cadetblue;
+}
+
+header{
+    width: 100%;
+    height: 200px;
+    background-color: black;
+    color: orange;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    width: 100%;
+    height: 200px;
+    background-color: black;
+    color: orange;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    row-gap: 30px;
+    padding: 50px;
+    flex-wrap: wrap;
+}
+
+.product-container {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 1 / 4;
+    width: 300px;
+    max-width: 400px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all .3s ease-in;
+}
+
+.product-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 20px 2px black;
+}
+
+.product-container img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 10px;
+}
+
+.product-container .product-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-container .product-header .product-general {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.product-container .product-header .product-general div:last-child {
+    font-size: .9rem;
+    color: gray;
+    font-weight: 400;
+}
+
+.product-container .product-header .product-price {
+    font-weight: 700;
+}
+
+.product-container .product-discount {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    padding-bottom: 5px;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transform: translateX(40px) translateY(-40px) rotate(45deg);
+}
+
+.product-container button {
+    width: 60%;
+    height: 40px;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    background-color: orange;
+    color: black;
+    cursor: pointer;
+}
+
+.product-container button:hover {
+    opacity: .75;
+}
