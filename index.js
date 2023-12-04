@@ -109,7 +109,7 @@ function createBox(productData) {
 
     productView.innerText = "View Product";
     productView.classList.add('product-view');
-    productView.href= `/product.html?id=${productData.id}`;
+    productView.href= `product.html?id=${productData.id}`;
     productView.target = "_blank";
 
     productContainer.appendChild(productImg);
