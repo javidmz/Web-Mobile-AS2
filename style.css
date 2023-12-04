@@ -51,7 +51,6 @@ footer {
 .product-container {
     position: relative;
     flex-grow: 1;
-    flex-basis: 1 / 4;
     width: 300px;
     max-width: 400px;
     padding: 10px;
@@ -118,7 +117,7 @@ footer {
     transform: translateX(40px) translateY(-40px) rotate(45deg);
 }
 
-.product-container .product-view {
+.product-container .product-view, .product-detailed-general .product-detailed-buy {
     border-radius: 10px;
     width: 60%;
     height: 40px;
@@ -148,7 +147,7 @@ footer {
 
 .product-detailed-general {
     display: flex;
-    justify-content: space-between;
+    gap: 75px;
 }
 
 .product-detailed-general img {
@@ -168,3 +167,88 @@ footer {
     font-weight: 700;
 }
 
+.product-detailed-general .product-detailed-title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.product-detailed-general .product-detailed-category, .product-detailed-general .product-detailed-discount {
+    align-self: flex-start;
+    padding: 5px 10px;
+    border: 2px solid black;
+    color: chocolate;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.product-detailed-general .product-detailed-discount {
+    border-color: red;
+    color: red;
+}  
+
+.product-detailed-general .product-detailed-buy {
+    width: 80%;
+}
+
+.product-detailed-description, .product-detailed-images-header {
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: center;
+}
+
+.product-detailed-images-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.product-detailed-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.filter-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+input, select {
+    border: none;
+    outline: none;
+    padding: 7px;
+    border-radius: 10px;
+}
+
+.pagination {
+    margin: 0 auto 25px;
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.page {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: orange;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.page.current {
+    color: red;
+}
+
+.page:hover {
+    opacity: .75;
+}

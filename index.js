@@ -1,7 +1,48 @@
+let prevPage;
+let currentlyFetched = "https://dummyjson.com/products?limit=10";
+
+document.querySelector('form').addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearPage('pagination')
+    clearPage("products");
+    const search = document.querySelector('input').value.split(" ").join('%20');
+    console.log(search);
+    currentlyFetched = `https://dummyjson.com/products/search?q=${search}`
+    displayData(currentlyFetched);
+})
+
+document.querySelector('select').addEventListener('change', () => {
+    clearPage('pagination');
+    clearPage("products");
+    const optionValue = document.querySelector('select').value;
+    console.log(optionValue);
+    currentlyFetched = optionValue !== "default" ? `https://dummyjson.com/products/category/${optionValue}?limit=10` : `https://dummyjson.com/products?limit=10`
+    displayData(currentlyFetched);
+})
+
+document.querySelector('.pagination').addEventListener('click', (e) => {
+    if(e.target.classList.contains('page')) {
+        clearPage("products");
+        displayData(`${currentlyFetched}&skip=${10 * (e.target.id - 1)}`);
+    }
+})
+
+function clearPage(className) {
+    console.log(className);
+    const products = document.querySelector(`.${className}`);
+    while(products.firstChild) {
+        products.removeChild(products.firstChild);
+    }
+}
 
 async function getData(url) {
-    const response = await fetch(url);
-    const data = await response.json();
+    let data;
+    try {
+        const response = await fetch(url);
+        data = await response.json();
+    } catch(err) {
+        console.log("Error happened");
+    }
     return data;
 }
 
@@ -10,8 +51,24 @@ async function displayData(url) {
     console.log(data);
     let productsContainer = document.querySelector('.products');
 
-    data.products.forEach(product => {
+    data.products.slice(0, 10).forEach(product => {
         productsContainer.appendChild(createBox(product))
+    })
+    console.log('hello');
+
+    addPagination(data.total, data.skip);
+}
+
+async function getCategories() {
+    const categories = await getData('https://dummyjson.com/products/categories?limit=10');
+
+    const selectTag = document.querySelector('select');
+    
+    categories.forEach(category => {
+        const optionTag = document.createElement('option');
+        optionTag.value = category;
+        optionTag.innerText = category;
+        selectTag.appendChild(optionTag)
     })
 }
 
@@ -66,4 +123,33 @@ function createBox(productData) {
     return productContainer
 }
 
-displayData("https://dummyjson.com/products");
+function addPagination(total, skip) {
+    const pagination = document.querySelector('.pagination');
+    console.log(pagination.children.length);
+    if(pagination.children.length == 0) {
+        console.log(total + " " + skip);
+        const totalPages = Math.ceil(total / 10.0);
+    
+        for(let i = 1; i <= totalPages; i++) {
+            const page = document.createElement('div');
+            if(i === 1)
+                page.classList.add('current');
+            page.innerText = i;
+            page.classList.add('page');
+            page.id = i;
+            pagination.appendChild(page);
+        }
+        prevPage = 1;
+    }
+    else {
+        const currentPage = Math.floor(skip / 10);
+        console.log(currentPage);
+        console.log(document.querySelectorAll('.page')[currentPage])
+        document.querySelectorAll('.page')[prevPage - 1].classList.remove('current');
+        document.querySelectorAll('.page')[currentPage].classList.add('current');
+        prevPage = currentPage;
+    }
+}
+
+displayData("https://dummyjson.com/products?limit=10");
+getCategories();

@@ -5,8 +5,13 @@ function getQueryParam() {
 }
 
 async function getData(url) {
-    const response = await fetch(url);
-    const data = await response.json();
+    let data;
+    try {
+        const response = await fetch(url);
+        data = await response.json();
+    } catch(err) {
+        console.log("Error happened");
+    }
     displayProductDetailed(data);
 }
 
@@ -25,6 +30,7 @@ function displayProductDetailed(productData) {
     const productBuy = document.createElement('button');
     const productInfoContainer = document.createElement('div');
     const productGeneralContainer = document.createElement('div');
+    const productImgsContHeader = document.createElement('div');
     const productImgsContainer = document.createElement('div');
 
     productMainImg.src = productData.thumbnail
@@ -42,8 +48,8 @@ function displayProductDetailed(productData) {
     productDiscount.innerText = "- " + productData.discountPercentage.toFixed() + "%";
     productDiscount.classList.add('product-detailed-discount');
 
-    productStock.innerText = productData.stock;
-    productDiscount.classList.add('product-detailed-stock');
+    productStock.innerText = productData.stock + " items left";
+    productStock.classList.add('product-detailed-stock');
 
     productDescription.innerText = productData.description;
     productDescription.classList.add('product-detailed-description');
@@ -57,7 +63,7 @@ function displayProductDetailed(productData) {
     productInfoContainer.appendChild(productBrand);
     productInfoContainer.appendChild(productTitle);
     productInfoContainer.appendChild(productCategory);
-    productInfoContainer.appendChild(productDescription);
+    productInfoContainer.appendChild(productDiscount);
     productInfoContainer.appendChild(productPrice);
     productInfoContainer.appendChild(productStock);
     productInfoContainer.appendChild(productBuy);
@@ -73,7 +79,14 @@ function displayProductDetailed(productData) {
         productImgsContainer.appendChild(productImg);
     });
 
+    productImgsContainer.classList.add('product-detailed-images');
+
+    productImgsContHeader.innerText = "Other Images of this Product";
+    productImgsContHeader.classList.add('product-detailed-images-header');
+
     productDetailedContainer.appendChild(productGeneralContainer);
+    productDetailedContainer.appendChild(productDescription);
+    productDetailedContainer.appendChild(productImgsContHeader);
     productDetailedContainer.appendChild(productImgsContainer);
 }
 
