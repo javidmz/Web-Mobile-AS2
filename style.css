@@ -11,7 +11,7 @@ body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: cadetblue;
 }
@@ -118,7 +118,8 @@ footer {
     transform: translateX(40px) translateY(-40px) rotate(45deg);
 }
 
-.product-container button {
+.product-container .product-view {
+    border-radius: 10px;
     width: 60%;
     height: 40px;
     font-weight: 700;
@@ -127,8 +128,43 @@ footer {
     background-color: orange;
     color: black;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 
-.product-container button:hover {
+.product-container .product-view:hover {
     opacity: .75;
 }
+
+.product-detailed {
+    margin-top: 100px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.product-detailed-general {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-detailed-general img {
+    width: 60%;
+}
+
+.product-detailed-general > div {
+    display: flex;
+    padding: 15px 0;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-detailed-general .product-detailed-brand {
+    font-size: 1.25rem;
+    color: orange;
+    font-weight: 700;
+}
+
