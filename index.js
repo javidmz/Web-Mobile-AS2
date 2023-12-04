@@ -1,19 +1,12 @@
 
-
-// window.addEventListener('click', (e) => {
-//     console.log('clciked')
-//     if(e.target.classList.contains('product-container')) {
-//         console.log('yes')
-//     }
-// });
-
-async function getData() {
-    const response = await fetch("https://dummyjson.com/products");
+async function getData(url) {
+    const response = await fetch(url);
     const data = await response.json();
-    displayData(data)
+    return data;
 }
 
-function displayData(data) {
+async function displayData(url) {
+    const data = await getData(url)
     console.log(data);
     let productsContainer = document.querySelector('.products');
 
@@ -32,7 +25,7 @@ function createBox(productData) {
     const productStock = document.createElement('div');
     const productHeader = document.createElement('div');
     const productGeneral = document.createElement('div');
-    const productView = document.createElement('button');
+    const productView = document.createElement('a');
 
     productImg.src = productData.thumbnail
     productImg.alt = "product_image";
@@ -47,7 +40,7 @@ function createBox(productData) {
     productDiscount.innerText = "- " + productData.discountPercentage.toFixed() + "%";
     productDiscount.classList.add('product-discount');
 
-    productStock.innerText = productData.stock;
+    productStock.innerText = productData.stock + " items left";
     
     productGeneral.appendChild(productTitle);
     productGeneral.appendChild(productCategory);
@@ -58,15 +51,19 @@ function createBox(productData) {
     productHeader.classList.add('product-header');
 
     productView.innerText = "View Product";
+    productView.classList.add('product-view');
+    productView.href= `/product.html?id=${productData.id}`;
+    productView.target = "_blank";
 
     productContainer.appendChild(productImg);
     productContainer.appendChild(productHeader);
     productContainer.appendChild(productDiscount);
     productContainer.appendChild(productView);
+    productContainer.appendChild(productStock);
     productContainer.id = productData.id;
     productContainer.classList.add('product-container');
 
     return productContainer
 }
 
-getData();
+displayData("https://dummyjson.com/products");
