@@ -6,7 +6,6 @@ document.querySelector('form').addEventListener("submit", async (e) => {
     clearPage('pagination')
     clearPage("products");
     const search = document.querySelector('input').value.split(" ").join('%20');
-    console.log(search);
     currentlyFetched = `https://dummyjson.com/products/search?q=${search}`
     displayData(currentlyFetched);
 })
@@ -15,7 +14,6 @@ document.querySelector('select').addEventListener('change', () => {
     clearPage('pagination');
     clearPage("products");
     const optionValue = document.querySelector('select').value;
-    console.log(optionValue);
     currentlyFetched = optionValue !== "default" ? `https://dummyjson.com/products/category/${optionValue}?limit=10` : `https://dummyjson.com/products?limit=10`
     displayData(currentlyFetched);
 })
@@ -28,7 +26,6 @@ document.querySelector('.pagination').addEventListener('click', (e) => {
 })
 
 function clearPage(className) {
-    console.log(className);
     const products = document.querySelector(`.${className}`);
     while(products.firstChild) {
         products.removeChild(products.firstChild);
@@ -48,13 +45,11 @@ async function getData(url) {
 
 async function displayData(url) {
     const data = await getData(url)
-    console.log(data);
     let productsContainer = document.querySelector('.products');
 
     data.products.slice(0, 10).forEach(product => {
         productsContainer.appendChild(createBox(product))
     })
-    console.log('hello');
 
     addPagination(data.total, data.skip);
 }
@@ -125,9 +120,7 @@ function createBox(productData) {
 
 function addPagination(total, skip) {
     const pagination = document.querySelector('.pagination');
-    console.log(pagination.children.length);
     if(pagination.children.length == 0) {
-        console.log(total + " " + skip);
         const totalPages = Math.ceil(total / 10.0);
     
         for(let i = 1; i <= totalPages; i++) {
@@ -143,8 +136,6 @@ function addPagination(total, skip) {
     }
     else {
         const currentPage = Math.floor(skip / 10);
-        console.log(currentPage);
-        console.log(document.querySelectorAll('.page')[currentPage])
         document.querySelectorAll('.page')[prevPage].classList.remove('current');
         document.querySelectorAll('.page')[currentPage].classList.add('current');
         prevPage = currentPage;

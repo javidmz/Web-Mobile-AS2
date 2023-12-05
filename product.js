@@ -16,7 +16,6 @@ async function getData(url) {
 }
 
 function displayProductDetailed(productData) {
-    console.log(productData);
     const productDetailedContainer = document.querySelector('.product-detailed');
 
     const productMainImg = document.createElement('img');
