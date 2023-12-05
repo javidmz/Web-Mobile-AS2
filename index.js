@@ -139,13 +139,13 @@ function addPagination(total, skip) {
             page.id = i;
             pagination.appendChild(page);
         }
-        prevPage = 1;
+        prevPage = 0;
     }
     else {
         const currentPage = Math.floor(skip / 10);
         console.log(currentPage);
         console.log(document.querySelectorAll('.page')[currentPage])
-        document.querySelectorAll('.page')[prevPage - 1].classList.remove('current');
+        document.querySelectorAll('.page')[prevPage].classList.remove('current');
         document.querySelectorAll('.page')[currentPage].classList.add('current');
         prevPage = currentPage;
     }
